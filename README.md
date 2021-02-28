@@ -1,4 +1,8 @@
 # FCM 网络游戏防沉迷实名认证系统包
+[![Build Status](https://travis-ci.org/chinawilon/fcm_game.svg?branch=main)](https://travis-ci.org/chinawilon/fcm_game)
+[![codecov](https://codecov.io/gh/chinawilon/fcm_game/branch/main/graph/badge.svg?token=97TOvviWUH)](https://codecov.io/gh/chinawilon/fcm_game)
+![Supported PHP versions: =7.1+](https://img.shields.io/badge/php-7.1+-blue.svg)
+
 example:
 
 ```php
