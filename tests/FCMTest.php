@@ -49,6 +49,9 @@ class FCMTest extends TestCase
 
         $query = $this->fcm->testQuery('100000000000000001', 'HHatGD');
         $this->assertStringContainsString('errcode', $query);
+
+        $logout = $this->fcm->testLoginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']], '99u6kr');
+        $this->assertStringContainsString('errcode', $logout);
     }
 
 
@@ -96,5 +99,22 @@ class FCMTest extends TestCase
 
     }
 
+
+    /**
+     * login or logout
+     *
+     * @throws Exception|GuzzleException
+     */
+    public function testLoginOrOut()
+    {
+        // 游客模式
+        echo "\n";
+        echo $this->fcm->testLoginOrOut([['bt'=>0, 'ct'=>2, 'di'=>md5('device')]], 'BUSRy9');
+        echo $this->fcm->flushInfo();
+
+        // 认证模式
+        echo $this->fcm->testLoginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']], '99u6kr');
+        echo $this->fcm->flushInfo();
+    }
 
 }

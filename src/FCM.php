@@ -141,6 +141,7 @@ class FCM
      * @return string
      * @throws AESException
      * @throws GuzzleException
+     * @example $data =  [['bt'=>0, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']]
      */
     public function loginOrOut(array $data, $uri)
     {
@@ -154,7 +155,7 @@ class FCM
             $tmp['ct'] = $d['ct'];
             $tmp['di'] = $d['di'];
             $tmp['pi'] = $d['pi'];
-            $collections[] = $tmp;
+            $collections['collections'][] = $tmp;
         }
         $uri = $uri ?: 'http://api2.wlc.nppa.gov.cn/behavior/collection/loginout';
         $headers = ['Content-Type' => 'application/json; charset=utf-8'];
@@ -162,15 +163,16 @@ class FCM
     }
 
     /**
-     * @param arary $data
+     * @param array $data
+     * @param $testCode
      * @return string
      * @throws AESException
      * @throws GuzzleException
      */
-    public function testLoginOrOut(arary $data)
+    public function testLoginOrOut(array $data, string $testCode)
     {
         $this->debug = true;
-        $uri = 'https://wlc.nppa.gov.cn/test/collection/loginout';
+        $uri = 'https://wlc.nppa.gov.cn/test/collection/loginout/'.$testCode;
         return $this->loginOrOut($data, $uri);
     }
 
