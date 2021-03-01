@@ -153,8 +153,8 @@ class FCM
             $tmp['bt'] = $d['bt'];
             $tmp['ot'] = $d['ot'] ?? time();
             $tmp['ct'] = $d['ct'];
-            $tmp['di'] = $d['di'];
-            $tmp['pi'] = $d['pi'];
+            $tmp['di'] = $d['di'] ?? "";
+            $tmp['pi'] = $d['pi'] ?? "";
             $collections['collections'][] = $tmp;
         }
         $uri = $uri ?: 'http://api2.wlc.nppa.gov.cn/behavior/collection/loginout';
