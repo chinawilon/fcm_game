@@ -1,5 +1,7 @@
 <?php
 
+use AES\AESException;
+use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
 use FCM\FCM;
 
@@ -16,6 +18,11 @@ class FCMTest extends TestCase
      * @var FCM
      */
     protected $fcm;
+    /**
+     * @var string
+     */
+
+    private $ai;
 
     /**
      * FCMTest constructor.
@@ -26,37 +33,68 @@ class FCMTest extends TestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
-        $this->ai = md5('test');
         $this->fcm = new FCM($this->app_id, $this->biz_id, $this->key);
         parent::__construct($name, $data, $dataName);
     }
 
+    /**
+     * phpunit 测试
+     * @throws AESException
+     * @throws GuzzleException
+     */
+    public function testExample()
+    {
+        $check = $this->fcm->testCheck('100000000000000001', '某一一', '110000190101010001', 'yA2RxS');
+        $this->assertStringContainsString('errcode', $check);
+
+        $query = $this->fcm->testQuery('100000000000000001', 'HHatGD');
+        $this->assertStringContainsString('errcode', $query);
+    }
+
+
+    /**
+     * check
+     *
+     * @throws AESException|GuzzleException
+     */
     public function testCheck()
     {
-        $this->fcm->debug(false);
-        $ret = $this->fcm->check($this->ai, '姜子牙', '4306199910113991');
-        $this->assertStringContainsString('errcode', $ret);
+        // 认证成功
+        echo "\n";
+        echo $this->fcm->testCheck('100000000000000001', '某一一', '110000190101010001', 'yA2RxS');
+        echo $this->fcm->flushInfo();
+
+        // 认证中
+        echo $this->fcm->testCheck('200000000000000001', '某二一', '110000190201010009', '3xTBoG');
+        echo $this->fcm->flushInfo();
+
+        // 认证失败
+        echo $this->fcm->testCheck('300000000000000001', '某三一', '110000190201010009', 'hkqdzR');
+        echo $this->fcm->flushInfo();
+
     }
 
+    /**
+     * query
+     *
+     * @throws Exception|GuzzleException
+     */
     public function testQuery()
     {
-        $this->fcm->debug(false);
-        $ret = $this->fcm->query($this->ai);
-        $this->assertStringContainsString('errcode', $ret);
+        // 认证成功
+        echo "\n";
+        echo $this->fcm->testQuery('100000000000000001', 'HHatGD');
+        echo $this->fcm->flushInfo();
+
+        // 认证中
+        echo $this->fcm->testQuery('200000000000000001', 'BwgbTE');
+        echo $this->fcm->flushInfo();
+
+        // 认证失败
+        echo $this->fcm->testQuery('300000000000000001', 'whzSne');
+        echo $this->fcm->flushInfo();
+
     }
 
-    public function testDebugCheck()
-    {
-        $this->fcm->debug(true);
-        $ret = $this->fcm->check($this->ai, '姜子牙', '4306199910113991');
-        $this->assertStringContainsString('errcode', $ret);
-    }
-
-    public function testDebugQuery()
-    {
-        $this->fcm->debug(true);
-        $ret = $this->fcm->query($this->ai);
-        $this->assertStringContainsString('errcode', $ret);
-    }
 
 }

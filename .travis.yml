@@ -13,7 +13,7 @@ before_install:
 install: travis_retry composer install
 
 script:
-  - vendor/bin/phpunit --coverage-clover coverage.xml
+  - vendor/bin/phpunit --filter testExample --coverage-clover coverage.xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
