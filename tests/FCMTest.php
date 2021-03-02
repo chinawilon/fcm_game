@@ -44,7 +44,7 @@ class FCMTest extends TestCase
      */
     public function testExample()
     {
-        $check = $this->fcm->check('100000000000000001', '某一一', '110000190101010001', 'yA2RxS');
+        $check = $this->fcm->check('100000000000000001', '某一一', '110000190101010001');
         $this->assertStringContainsString('errcode', $check);
 
         $testCheck = $this->fcm->testCheck('100000000000000001', '某一一', '110000190101010001', 'yA2RxS');
@@ -56,10 +56,10 @@ class FCMTest extends TestCase
         $testQuery = $this->fcm->testQuery('100000000000000001', 'HHatGD');
         $this->assertStringContainsString('errcode', $testQuery);
 
-        $logout = $this->fcm->testLoginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']], '99u6kr');
+        $logout = $this->fcm->loginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']]);
         $this->assertStringContainsString('errcode', $logout);
 
-        $testLogout = $this->fcm->testLoginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']]);
+        $testLogout = $this->fcm->testLoginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']], '99u6kr');
         $this->assertStringContainsString('errcode', $testLogout);
     }
 
