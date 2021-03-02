@@ -3,7 +3,15 @@
 [![codecov](https://codecov.io/gh/chinawilon/fcm_game/branch/main/graph/badge.svg?token=97TOvviWUH)](https://codecov.io/gh/chinawilon/fcm_game)
 ![Supported PHP versions: =7.1+](https://img.shields.io/badge/php-7.1+-blue.svg)
 
-example:
+# install
+```shell script
+composer require "chinawilon/fcm_game: >=1.0"
+```
+# example
+
+**下面使用phpunit的形式请求，记得加上请求时的ip作为测试ip白名单**
+
+*需要通过所有的测试案例，测试案例会有测试码，全部通过以后才可以使用正式接口地址*
 
 ```php
 use AES\AESException;
