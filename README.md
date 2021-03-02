@@ -6,7 +6,6 @@
 example:
 
 ```php
-
 use AES\AESException;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
@@ -40,7 +39,7 @@ class FCMTest extends TestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
-        $this->fcm = new FCM($this->app_id, $this->biz_id, $this->key);
+        $this->fcm = new FCM($this->app_id, $this->biz_id, $this->key, 20);
         parent::__construct($name, $data, $dataName);
     }
 
@@ -51,14 +50,23 @@ class FCMTest extends TestCase
      */
     public function testExample()
     {
-        $check = $this->fcm->testCheck('100000000000000001', '某一一', '110000190101010001', 'yA2RxS');
+        $check = $this->fcm->check('100000000000000001', '某一一', '110000190101010001');
         $this->assertStringContainsString('errcode', $check);
 
-        $query = $this->fcm->testQuery('100000000000000001', 'HHatGD');
+        $testCheck = $this->fcm->testCheck('100000000000000001', '某一一', '110000190101010001', 'yA2RxS');
+        $this->assertStringContainsString('errcode', $testCheck);
+
+        $query = $this->fcm->query('100000000000000001');
         $this->assertStringContainsString('errcode', $query);
 
-        $logout = $this->fcm->testLoginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']], '99u6kr');
+        $testQuery = $this->fcm->testQuery('100000000000000001', 'HHatGD');
+        $this->assertStringContainsString('errcode', $testQuery);
+
+        $logout = $this->fcm->loginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']]);
         $this->assertStringContainsString('errcode', $logout);
+
+        $testLogout = $this->fcm->testLoginOrOut([['bt'=>1, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']], '99u6kr');
+        $this->assertStringContainsString('errcode', $testLogout);
     }
 
 
