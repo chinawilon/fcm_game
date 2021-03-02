@@ -143,7 +143,7 @@ class FCM
      * @throws GuzzleException
      * @example $data =  [['bt'=>0, 'ct'=>0, 'pi'=>'1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u']]
      */
-    public function loginOrOut(array $data, $uri)
+    public function loginOrOut(array $data, $uri = '')
     {
         $collections = [];
         foreach($data as $i => $d) {
