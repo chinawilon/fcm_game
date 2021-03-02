@@ -149,7 +149,7 @@ class FCM
         foreach($data as $i => $d) {
             $tmp = [];
             $tmp['no'] = $i+1;
-            $tmp['si'] = md5($d['pi']);
+            $tmp['si'] = $d['si'] ?? md5($d['pi']);
             $tmp['bt'] = $d['bt'];
             $tmp['ot'] = $d['ot'] ?? time();
             $tmp['ct'] = $d['ct'];
@@ -217,8 +217,8 @@ class FCM
             $ret .= $r.$v;
         }
         // sha256
-        $this->info(sprintf("%s: %s", 'makeSign-before', $this->key.$ret.$body));
-        $this->info(sprintf("%s: %s", 'makeSign-after', $sign = hash("sha256", $this->key.$ret.$body)));
+        $this->info(sprintf("%s: %s", 'makeSign-before', $raw = $this->key.$ret.$body));
+        $this->info(sprintf("%s: %s", 'makeSign-after', $sign = hash("sha256", $raw)));
         return $sign;
     }
 
