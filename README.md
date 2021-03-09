@@ -5,7 +5,7 @@
 
 # install
 ```shell script
-composer require "chinawilon/fcm_game: >=1.0"
+composer require "chinawilon/fcm_game: >=2.0"
 ```
 # example
 
