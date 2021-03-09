@@ -254,9 +254,10 @@ class FCM
     {
         $this->info(sprintf("%s: %s", $method, $uri));
         $raw = json_encode($body, JSON_UNESCAPED_UNICODE);
+        $query = isset($options['query']) ? $options['query'] : [];
         $body = '{"data":"' . $this->aes->encrypt($raw) . '"}';
         $headers = array_merge($this->headers, $headers);
-        $headers['sign'] = $this->makeSign($body);
+        $headers['sign'] = $this->makeSign($body, $query);
         $options = array_merge(['headers'=>$headers, 'body'=>$body, 'timeout'=>$this->timeout], $options);
         $this->info(sprintf("%s: %s", 'raw', $raw));
         $this->info(sprintf("%s: %s", 'options', print_r($options, true)));
