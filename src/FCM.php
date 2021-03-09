@@ -254,7 +254,7 @@ class FCM
     {
         $this->info(sprintf("%s: %s", $method, $uri));
         $raw = json_encode($body, JSON_UNESCAPED_UNICODE);
-        $query = isset($options['query']) ? $options['query'] : [];
+        $query = $options['query'] ?? [];
         $body = '{"data":"' . $this->aes->encrypt($raw) . '"}';
         $headers = array_merge($this->headers, $headers);
         $headers['sign'] = $this->makeSign($body, $query);
