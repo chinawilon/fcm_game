@@ -116,7 +116,8 @@ class FCM
     public function query(string $ai, $uri = '')
     {
         $uri = $uri ?: 'http://api2.wlc.nppa.gov.cn/idcard/authentication/query';
-        return $this->doRequest('GET', $uri, [], ['ai' => $ai ]);
+        $query = ['ai' => $ai ];
+        return $this->doRequest('GET', $uri, [], $query, ['query' => $query]);
     }
 
     /**
