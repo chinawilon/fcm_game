@@ -150,12 +150,13 @@ class FCM
         foreach($data as $i => $d) {
             $tmp = [];
             $tmp['no'] = $i+1;
-            $tmp['si'] = $d['si'] ?? md5($d['pi']);
             $tmp['bt'] = $d['bt'];
             $tmp['ot'] = $d['ot'] ?? time();
             $tmp['ct'] = $d['ct'];
             $tmp['di'] = $d['di'] ?? "";
             $tmp['pi'] = $d['pi'] ?? "";
+            // 游客模式需要传di，认证者是pi
+            $tmp['si'] = $d['si'] ?? ($d['di'] ?? md5($tmp['pi']));
             $collections['collections'][] = $tmp;
         }
         $uri = $uri ?: 'http://api2.wlc.nppa.gov.cn/behavior/collection/loginout';
